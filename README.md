@@ -28,5 +28,20 @@ A='file3.pl'
 F=file3
 ```
 
+Linux example:
+```
+?- dir('/'/A/B/C/D/E/F).
+A = usr,
+B = include,
+C = 'c++',
+D = '4.7',
+E = ext,
+F = pb_ds
+```
 
+```
+?- file('/'/A/B/'smb.conf').
+A = etc,
+B = samba 
+```
 Possible bugs: Using Swi-Prolog dicts might cause problems.
