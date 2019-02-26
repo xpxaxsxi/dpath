@@ -1,4 +1,6 @@
-# dirtree (temporary name, will be changed)
+# dpath 
+(this was: dirtree (temporary name, will be changed because)
+
 An file system traversing utility. Backtracks in the directory structure. Got inspiration from xpath/2.
 
 ``` prolog
