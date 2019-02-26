@@ -3,7 +3,7 @@ An file system traversing utility. Backtracks in the directory structure. Got in
 
 ``` prolog
 ?- directory_files('.',List).
-List=[file1.txt,file2.txt,file3.pl].
+List=['file1.txt','file2.txt','file3.pl'].
 ```
 
 ``` prolog
