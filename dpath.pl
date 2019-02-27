@@ -18,7 +18,7 @@ Rationale: to view directories that are deep.
 */
 
 % Dict-concept is using the dot-operator
-:- redefine_system_predicate( dirtree:(.(_,_,_))).
+:- redefine_system_predicate( dpath:(.(_,_,_))).
 .(Data, Func, Value):-  Value =.. ['.', Data,Func].
 
 
@@ -175,7 +175,7 @@ filename_head_tail(FileName,HeadTail):-
 %when in debug mode, writes out to stderr the exceptions
 directory_files2(Directory,Files):-
           catch(directory_files(Directory,Files),Exc,
-                (ignore( debug(dirtree(exceptions),'~q',Exc)),fail)).
+                (ignore( debug(dpath(exceptions),'~q',Exc)),fail)).
 
 
 %!        split_pathterm( ?PathTerm, -Head,-Tail) is det.
