@@ -26,7 +26,7 @@ A='file3.pl'
 ```
 
 ``` prolog
-?- filetype(F.pl). %Swipl doesn't like  the dot in 'F.pl' and the Do What I Mean 
+?- dpath:filetype(F.pl). %Swipl doesn't like  the dot in 'F.pl' and the Do What I Mean 
                    % proposes a proper module in Windows. Linux throws a error
 F=file3
 ```
