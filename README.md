@@ -3,6 +3,9 @@
 
 An file system traversing utility. Backtracks in the directory structure. Got inspiration from xpath/2.
 
+This project is under a MIT-license. 
+I am currently trying to do a dpath-pack that can be added to swipl with pack_install/1 
+
 ``` prolog
 ?- directory_files('.',List).
 List=['file1.txt','file2.txt','file3.pl'].
@@ -59,5 +62,13 @@ directory has a dpath.pl
 ?- win:wexplore(filetype(A.pl)).
 A = dpath .
 ``` 
+
+Example:
+
+Windows 10 opens an jpg-image.  Next image is shown after user hits spacebar in Swi-Prolog command prompt. 
+All desktops are traversed while searching for images. 
+```
+?- win:wopen(filetype('c:'/users/_/desktop/A.jpg)).
+```
 
 Possible bugs: Using Swi-Prolog dicts might cause problems.
