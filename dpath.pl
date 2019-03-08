@@ -6,14 +6,14 @@
           ]).
 /** <module> An file system traversing utility.
 
-Backtracks in the directory structure.
+Traverses directory structure and backtracks when necessary.
 
 Example:
-filetype( A/B.pl).
-Unifies variables with a subdirectory A that has a B as a filename and
-pl as extension.
-
-Rationale: to view directories that are deep.
+==
+  ?- file(A/B),atom_concat(t,_,B).
+==
+True when A is unified to a subdirectory and B is unified to a
+filename that begins with a letter t.
 
 */
 
@@ -32,6 +32,9 @@ Rationale: to view directories that are deep.
 %         A = 'Windows';
 %         false.
 %         ==
+%
+%         @error Throws errors only when debug topic
+%         dpath(exceptions) is true
 file(C):-
           compound(C),
           fold(C,A/_),
@@ -51,14 +54,18 @@ file(C):-
 %!        filetype( ?Pathterm_with_extension ) is nondet.
 %
 %         Check if the file exists or search for a file that matches.
-%         Uses the file base name and extension.
+%         Uses the file base name and extension. Needs a
+%         dpath-qualifier because of @see ./3
 %
 %         Example:
 %         ==
-%         ?- filetype('c:'/windows/A.exe).
+%         ?- dpath:filetype('c:'/windows/A.exe).
 %         A = bfsvc;
 %         A = explorer;
 %         ==
+%
+%         @error throws errors only when debug topic
+%         dpath(exceptions) is true
 filetype( C/K):-
           atom(C),
           !,
@@ -108,6 +115,8 @@ filetype( CK):-
 %         B = appcompat,
 %         C = 'Programs'
 %         ==
+%         @error throws errors only when debug topic
+%         dpath(exceptions) is true
 dir(C):-
           compound(C),
           fold(C,A/_),
@@ -145,7 +154,9 @@ exists_filetype( AB,cd(CD)):-
 %         PathTerm is path and VirtualCd is a virtual current directory.
 %
 %         Example:
-%         - exists_file(File,cd('.')).
+%         ==
+%         exists_file(File,cd('.')).
+%         ==
 %         - File is unified with a file from current directory.
 exists_file(PathTerm,cd(CD)):-
           compound(PathTerm),!,
@@ -187,8 +198,9 @@ directory_files2(Directory,Files):-
 %         first atom on `/' multiply separated term and Y is rest
 %
 %         Example:
+%         ==
 %         split_pathterm(a/b/c/d,a,b/c/d).
-%
+%         ==
 %         Rationale: pathterm has  '/' operators that are
 %         interpreted differently than usually. They are
 %         interpreted as having a xfy associativity. See op/3.
@@ -202,6 +214,9 @@ split_pathterm(H,H,_).
 %!        fold( -PathTermyfx,+PathTermxfy) is det.
 %
 %         Example: folds a a/b/c to a/(b/c).
+%         ==
+%         ?- fold(a/b/c,a/(b/c).
+%         ==
 %         If the operator `/' would be redefined as
 %         op(400,xfy,/) then the a/(b/c) would
 %         display as a/b/c.
@@ -248,9 +263,10 @@ read_term2(Atom,Term,Delimiter):-
 % operands are taken from List
 %
 % example
+% ==
 % ?- unify('/',[A,B,C],R).
 % R=A/B/C.
-%
+% ==
 unify_term(OP,List,Res):-
     length(List,Len),
     Num is Len-1,
@@ -351,15 +367,17 @@ filtered_directory_has_a_member(DirAtom,Member):-
 
 %!       pathterm_to_atom( Pathterm,Res) is det.
 %
-%        This predicate does a term_to_atom/2 conversion
+%        This is a private predicate does a term_to_atom/2 conversion
 %        of pathterms, so that Res can be used in OS calls
 %        like exists_directory/1
 %
-%
+%        Example:
+%        ==
 %        ?- pathterm_to_atom((a/b)/c,Res).
 %        Res='a/b/c'.
+%        ==
 %
-%        Bug: Doesn't handle a/b/c.txt
+%        Bug: Doesn't handle a/b/c.txt, but the pathterm_atom/2 does.
 pathterm_to_atom( /(A,B),Res):-
          !,
          pathterm_to_atom(A,Res2),
@@ -409,23 +427,27 @@ pathterm_atom( /(A,B),Res):-
 
 pathterm_atom(A,A).
 
-%!        pathterm( +Len:number,+HT:list, -PT:pathterm) is det.
+%!        pathterm( +Len:number,+HT:list, -PT:pathterm) is semidet.
 %
 %         Creates a pathterm that has Len-members
 %         HT is a list where  (some) members of a pathterm are
 %         bind.
 %
 %         Example:
+%         ==
 %         ?- pathterm(5,[(1='c:'),(5=A.pl)],R).
 %         R='c:'/X/Y/Z/A.pl.
+%         ==
 %
 %         Usage example:
-%         %Find a prolog-file that is
-%         %under c:/users and maximally 7 subdirectories deep
+%         Find a prolog-file that is
+%         under c:/users and maximally 7 subdirectories deep
+%         ==
 %         ?-between(3,10,DE),pathterm(DE,[(1='c:'),(2=users),(DE=A.pl)],R),filetype(R).
 %         DE=5,
 %         A=c,
 %         R='c:'/users/'Prologist'/'OneDrive'/c.pl;
+%         ==
 %
 pathterm(Len,HT,PT):-
           length(List,Len),
