@@ -71,4 +71,11 @@ All desktops are traversed while searching for images.
 ?- win:wopen(filetype('c:'/users/_/desktop/A.jpg)).
 ```
 
+Example:
+
+Windows 10 shows a slideshow of jpg-images.  
+```
+?- win:wopen(filetype('c:'/users/_/desktop/A.jpg)), sleep(5), fail;!.
+```
+
 Possible bugs: Using Swi-Prolog dicts might cause problems.
