@@ -47,4 +47,17 @@ F = pb_ds
 A = etc,
 B = samba 
 ```
+
+`win` and `wexplorer` are modules that interact with Windows File Explorer. 
+`dpath` can be used without them, as in Linux command line.
+
+Example: 
+
+Windows 10 opens up an Explorer window that has dpath.pl selected, when current
+directory has a dpath.pl
+```
+?- win:wexplore(filetype(A.pl)).
+A = dpath .
+``` 
+
 Possible bugs: Using Swi-Prolog dicts might cause problems.
