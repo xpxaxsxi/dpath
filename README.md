@@ -2,8 +2,8 @@
 
 An file system traversing utility. Backtracks in the directory structure. Got inspiration from xpath/2.
 
-This project is under a MIT-license. 
-This project can be installed to Swi-Prolog as a pack by `pack_install(dpath).` 
+This repository is under a MIT-license. 
+This repository can be installed to Swi-Prolog as a pack by `pack_install(dpath).` 
 
 ``` prolog
 ?- directory_files('.',List).
