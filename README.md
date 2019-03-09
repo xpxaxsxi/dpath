@@ -3,7 +3,7 @@
 An file system traversing utility. Backtracks in the directory structure. Got inspiration from xpath/2.
 
 This project is under a MIT-license. 
-I am currently trying to do a dpath-pack that can be added to swipl with pack_install/1 
+This project can be installed to Swi-Prolog as a pack by `pack_install(dpath).` 
 
 ``` prolog
 ?- directory_files('.',List).
