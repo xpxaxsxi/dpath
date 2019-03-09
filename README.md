@@ -1,5 +1,4 @@
 # dpath 
-(this was: dirtree (temporary name, will be changed because)
 
 An file system traversing utility. Backtracks in the directory structure. Got inspiration from xpath/2.
 
@@ -51,7 +50,7 @@ A = etc,
 B = samba 
 ```
 
-`win` and `wexplorer` are modules that interact with Windows File Explorer. 
+`dpath_win` and `wexplorer` are modules that interact with Windows File Explorer. 
 `dpath` can be used without them, as in Linux command line.
 
 Example: 
@@ -59,7 +58,7 @@ Example:
 Windows 10 opens up an Explorer window that has dpath.pl selected, when current
 directory has a dpath.pl
 ```
-?- win:wexplore(filetype(A.pl)).
+?- dpath_win:wexplore(filetype(A.pl)).
 A = dpath .
 ``` 
 
@@ -68,14 +67,14 @@ Example:
 Windows 10 opens an jpg-image.  Next image is shown after user hits spacebar in Swi-Prolog command prompt. 
 All desktops are traversed while searching for images. 
 ```
-?- win:wopen(filetype('c:'/users/_/desktop/A.jpg)).
+?- dpath_win:wopen(filetype('c:'/users/_/desktop/A.jpg)).
 ```
 
 Example:
 
 Windows 10 shows a slideshow of jpg-images.  
 ```
-?- win:wopen(filetype('c:'/users/_/desktop/A.jpg)), sleep(5), fail;!.
+?- dpath_win:wopen(filetype('c:'/users/_/desktop/A.jpg)), sleep(5), fail;!.
 ```
 
 Possible bugs: Using Swi-Prolog dicts might cause problems.
