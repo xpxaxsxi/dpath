@@ -10,7 +10,7 @@
 */
 
 :- use_module(dpath).
-:- use_module(sources_root(wexplorer)).
+:- use_module(wexplorer).
 
 
 % Dict-concept is using the dot-operator
