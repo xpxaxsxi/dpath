@@ -1,4 +1,4 @@
-:- module(win,[wexplore/1,
+:- module(dpath_win,[wexplore/1,
                wopen/1,
                file/1,
                dir/1,
