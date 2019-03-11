@@ -5,36 +5,36 @@ An file system traversing utility. Backtracks in the directory structure. Got in
 This repository is under a MIT-license. 
 This repository can be installed to Swi-Prolog as a pack by `pack_install(dpath).` 
 
-``` prolog
+```prolog
 ?- directory_files('.',List).
 List=['file1.txt','file2.txt','file3.pl'].
 ```
 
-``` prolog
+```prolog
 ?- exists_file('file1.txt'). %old way
 true.
 ```
 
-``` prolog
+```prolog
 ?- file('file1.txt'). %the new way
 true.
 ```
 
-``` prolog
+```prolog
 ?- file(A).
 A='file1.txt';
 A='file2.txt';
 A='file3.pl'
 ```
 
-``` prolog
+```prolog
 ?- dpath:filetype(F.pl). %Swipl doesn't like  the dot in 'F.pl' and the Do What I Mean 
                    % proposes a proper module in Windows. Linux throws a error
 F=file3
 ```
 
 Linux example:
-``` prolog
+```prolog
 ?- dir('/'/A/B/C/D/E/F).
 A = usr,
 B = include,
@@ -44,7 +44,7 @@ E = ext,
 F = pb_ds
 ```
 
-``` prolog
+```prolog
 ?- file('/'/A/B/'smb.conf').
 A = etc,
 B = samba 
