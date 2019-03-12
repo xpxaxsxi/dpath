@@ -56,7 +56,8 @@ B = samba
 Example: 
 
 Windows 10 opens up an Explorer window that has dpath.pl selected, when current
-directory has a dpath.pl
+directory has only one file: the dpath.pl file. If current directory has more prolog files then 
+for each file a new Explorer windows is opened.
 ```
 ?- dpath_win:wexplore(filetype(A.pl)).
 A = dpath .
