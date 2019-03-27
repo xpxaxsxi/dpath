@@ -50,7 +50,7 @@ A = etc,
 B = samba 
 ```
 
-`dpath_win` and `wexplorer` are modules that interact with Windows File Explorer. 
+`dpathw` and `wexplorer` are modules that interact with Windows File Explorer. 
 `dpath` can be used without them, as in Linux command line.
 
 Example: 
@@ -59,7 +59,7 @@ Windows 10 opens up an Explorer window that has dpath.pl selected, when current
 directory has only one file: the dpath.pl file. If current directory has more prolog files then 
 for each file a new Explorer windows is opened.
 ```
-?- dpath_win:wexplore(filetype(A.pl)).
+?- dpathw:wexplore(filetype(A.pl)).
 A = dpath .
 ``` 
 
@@ -68,14 +68,14 @@ Example:
 Windows 10 opens an jpg-image.  Next image is shown after user hits spacebar in Swi-Prolog command prompt. 
 All desktops are traversed while searching for images. 
 ```
-?- dpath_win:wopen(filetype('c:'/users/_/desktop/A.jpg)).
+?- dpathw:wopen(filetype('c:'/users/_/desktop/A.jpg)).
 ```
 
 Example:
 
 Windows 10 shows a slideshow of jpg-images.  
 ```
-?- dpath_win:wopen(filetype('c:'/users/_/desktop/A.jpg)), sleep(5), fail;!.
+?- dpathw:wopen(filetype('c:'/users/_/desktop/A.jpg)), sleep(5), fail;!.
 ```
 
 Possible bugs: Using Swi-Prolog dicts might cause problems.
