@@ -73,7 +73,7 @@ All desktops are traversed while searching for images.
 
 Example:
 
-Windows 10 shows a slideshow of jpg-images.  
+Windows 10 shows a slideshow of jpg-images from desktop-folder, every users desktop is searched
 ```
 ?- dpathw:wopen(filetype('c:'/users/_/desktop/A.jpg)), sleep(5), fail;!.
 ```
