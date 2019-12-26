@@ -84,9 +84,7 @@ filetype( C/K):-
           fold(C,A/_),
           var(A),
           !,
-          A='.',
-          split_pathterm(C,Cd,Rest),
-          exists_filetype(Rest/K,cd(Cd)).
+          exists_filetype(C/K,cd('.')).
 
 filetype( C/K):-
           atom(C),!,
