@@ -8,17 +8,17 @@ This repository is under a MIT-license.
 This repository can be installed to Swi-Prolog as a pack by `pack_install(dpath).` 
 
 ```prolog
-?- directory_files('.',List).
-List=['file1.txt','file2.txt','file3.pl'].
+?- file(Drive :/ File'). 
+Drive = c,
+File = bootmgr ;
+Drive = c,
+File = 'BOOTNXT' ;
+Drive = c,
+File = 'bootTel.dat' .
 ```
 
 ```prolog
-?- exists_file('file1.txt'). %old way
-true.
-```
-
-```prolog
-?- file('file1.txt'). %the new way
+?- file('file1.txt'). 
 true.
 ```
 
