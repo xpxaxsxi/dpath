@@ -8,7 +8,7 @@ This repository is under a MIT-license.
 This repository can be installed to Swi-Prolog as a pack by `pack_install(dpath).` 
 
 ```prolog
-?- file(Drive :/ File'). 
+?- file(Drive :/ File). 
 Drive = c,
 File = bootmgr ;
 Drive = c,
