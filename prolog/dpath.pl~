@@ -26,7 +26,21 @@ helper(DP):- file(DP).
 
 :- op(650,yfx, user: :/). %this WORKS
 
+file( DP):-
+          compound(DP),
+          DP=Drive :/ Path,
+          atom(Drive),!,
+          atom_concat(Drive,':',DriveAtom),
+          file(DriveAtom/Path).
 
+file( DP):-
+          compound(DP),
+          DP=Drive :/ Path,
+          var(Drive),
+          !,
+          member(Drive,['c','d','e','f','g','h']),
+          atom_concat(Drive,':',DriveAtom),
+          file(DriveAtom/Path).
 
 
 %!        file( ?Pathterm ) is nondet.
@@ -42,18 +56,6 @@ helper(DP):- file(DP).
 %
 %         @error Throws errors only when debug topic
 %         dpath(exceptions) is true
-file( Drive:/Path):-
-          atom(Drive),!,
-          atom_concat(Drive,':',DriveAtom),
-          file(DriveAtom/Path).
-
-file( Drive :/ Path):-
-          var(Drive),
-          !,
-          member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
-          atom_concat(Drive,':',DriveAtom),
-          file(DriveAtom/Path).
-
 file(C):-
           compound(C),
           fold(C,A/_),

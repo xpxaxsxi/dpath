@@ -17,22 +17,21 @@
 :- redefine_system_predicate( win:(.(_,_,_))).
 .(Data, Func, Value):-  Value =.. ['.', Data,Func].
 
-/*
+
 wexplore(Drive:/T):-
           compound(T),
           atom_concat(Drive,':',D2),
           T=(dpath:D2/T2),
           wexplore(T2).
-*/
 
 wexplore(T):-
           compound(T),
           T=(dpath:T2),
           wexplore(T2).
 
-wexplore(dir(Drive:/T)):- dir(Drive:/T),atom_concat(Drive,':',D2),  wexplore(dir(D2/T)).
-wexplore(file(Drive:/T)):- file(Drive:/T),atom_concat(Drive,':',D2),  wexplore(file(D2/T)).
-wexplore(filetype(Drive:/T)):- filetype(Drive:/T),atom_concat(Drive,':',D2),  wexplore(filetype(D2/T)).
+wexplore(dir(Drive:/T)):- atom_concat(Drive,':',D2),  wexplore(dir(D2/T)).
+wexplore(file(Drive:/T)):- atom_concat(Drive,':',D2),  wexplore(file(D2/T)).
+wexplore(filetype(Drive:/T)):- atom_concat(Drive,':',D2),  wexplore(filetype(D2/T)).
 
 
 wexplore(dir(D)):-
