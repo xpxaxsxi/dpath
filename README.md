@@ -70,14 +70,14 @@ Example:
 Windows 10 opens an jpg-image.  Next image is shown after user hits spacebar in Swi-Prolog command prompt. 
 All desktops are traversed while searching for images. 
 ```
-?- dpathw:wopen(filetype('c:'/users/_/desktop/A.jpg)).
+?- dpathw:wopen(filetype(c:/users/_/desktop/A.jpg)).
 ```
 
 Example:
 
 Windows 10 shows a slideshow of jpg-images from desktop-folder, every users desktop is searched
 ```
-?- dpathw:wopen(filetype('c:'/users/_/desktop/A.jpg)), sleep(5), fail;!.
+?- dpathw:wopen(filetype(c:/users/_/desktop/A.jpg)), sleep(5), fail;!.
 ```
 
 Possible bugs: Using Swi-Prolog dicts might cause problems.
