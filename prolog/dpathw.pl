@@ -50,12 +50,14 @@ wexplore(file(D/E)):-
           select(file,File).
 
 wexplore(file(Drive:/T)):-
-          atom_concat(Drive,':',D2),
-          wexplore(file(D2/T)).
+          file(Drive:/T),
+          pathterm_atom(Drive:/T,File),
+          select(file,File).
 
 wexplore(filetype(Drive:/T)):-
-          atom_concat(Drive,':',D2),
-          wexplore(filetype(D2/T)).
+          filetype(Drive:/T),
+          pathterm_atom(Drive:/T,File),
+          select(file,File).
 
 
 wexplore(filetype(K/L)):-
