@@ -1,5 +1,4 @@
-This is a charlie-branch, where I try to learn about git and about github
-
+This is a delta-branch, where I try to learn about git and about github. 
 # dpath 
 
 An file system traversing utility. Backtracks in the directory structure. Got inspiration from xpath/2.
