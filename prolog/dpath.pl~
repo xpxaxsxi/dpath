@@ -78,7 +78,7 @@ file(C):-
 %
 %         Example:
 %         ==
-%         ?- dpath:filetype('c:'/windows/A.exe).
+%         ?- dpath:filetype(c:/windows/A.exe).
 %         A = bfsvc;
 %         A = explorer;
 %         ==
@@ -97,7 +97,7 @@ filetype( Drive:/Path):-
           %DP=Drive :/ Path,
           var(Drive),
           !,
-          member(Drive,['a','b','c','d','e','f','g','h','i']),
+          member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
           atom_concat(Drive,':',DriveAtom),
           filetype(DriveAtom/Path).
 
@@ -162,7 +162,8 @@ dir( DP):-
           DP=Drive :/ Path,
           var(Drive),
           !,
-          member(Drive,['c','d','e','f','g','h']),
+
+          member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
           atom_concat(Drive,':',DriveAtom),
           dir(DriveAtom/Path).
 dir(C):-
