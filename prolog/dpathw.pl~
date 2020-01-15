@@ -19,9 +19,6 @@
 
 
 
-
-
-
 wexplore(dir(D)):-
           \+compound(D),
           dir(D),
@@ -36,7 +33,8 @@ wexplore(dir(D/E)):-
 wexplore(dir(Drive:/T)):-
           dir(Drive:/T),
           pathterm_atom(Drive:/T,D2),
-          wexplore(dir(D2)).
+          show(dir,D2).
+
 
 
 wexplore(file(D)):-
@@ -73,6 +71,11 @@ wexplore(filetype(K.L)):-
           absolute_file_name(Path,AbsPath),
           select(file,AbsPath).
 
+%this is for convenience so that
+% wopen(dpath:filetype(X))
+%works, instead of removing the dpath as in
+% wopen(filetype(X))
+%
 wopen(dpath:T):-
           wopen(T).
 

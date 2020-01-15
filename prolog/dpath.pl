@@ -43,7 +43,7 @@ helper(DP):- file(DP).
 %         @error Throws errors only when debug topic
 %         dpath(exceptions) is true
 file(C):-
-          var(C),!,
+          \+compound(C),!,
           exists_file(C,cd('.')).
 
 

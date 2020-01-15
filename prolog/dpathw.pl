@@ -18,8 +18,13 @@
 .(Data, Func, Value):-  Value =.. ['.', Data,Func].
 
 
-
-
+%this is for convenience so that
+% wexplore(dpath:filetype(X))
+%works, instead of removing the dpath as in
+% wexplore(filetype(X))
+%
+wexplore(dpath:T):-
+          wexplore(T).
 
 
 wexplore(dir(D)):-
@@ -74,6 +79,11 @@ wexplore(filetype(K.L)):-
           absolute_file_name(Path,AbsPath),
           select(file,AbsPath).
 
+%this is for convenience so that
+% wopen(dpath:filetype(X))
+%works, instead of removing the dpath as in
+% wopen(filetype(X))
+%
 wopen(dpath:T):-
           wopen(T).
 

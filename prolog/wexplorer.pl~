@@ -2,6 +2,8 @@
 
 show(dir,DirText):-
     atom(DirText),
+    %text_has_path(DirText,DirPath),
+    %atomic_concat('./',DirPath,DirPath2),
     absolute_file_name(DirText,DirPath,[file_type(directory)]),
     exists_directory(DirPath),
     !,
@@ -21,6 +23,8 @@ show(dir,SpecDir):-
 select(file,FileText):-
     atom(FileText),
     !,
+    %text_has_path(FileText,FilePath),
+    %atomic_concat('./',FilePath,FilePath2),
     absolute_file_name(FileText,FilePath),
     exists_file(FilePath),
 

@@ -42,7 +42,13 @@ helper(DP):- file(DP).
 %
 %         @error Throws errors only when debug topic
 %         dpath(exceptions) is true
+file(C):-
+          var(C),!,
+          exists_file(C,cd('.')).
+
+
 file( Drive:/Path):-
+
           atom(Drive),!,
           atom_concat(Drive,':',DriveAtom),
           file(DriveAtom/Path).
@@ -67,8 +73,7 @@ file(C) :-
           split_pathterm(C,Cd,Rest),
           exists_file(Rest,cd(Cd)).
 
-file(C):-
-          exists_file(C,cd('.')).
+
 
 %!        filetype( ?Pathterm_with_extension ) is nondet.
 %
