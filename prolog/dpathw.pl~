@@ -19,15 +19,11 @@
 
 
 
-wexplore(T):-
-          compound(T),
-          T=(dpath:T2),
-          wexplore(T2).
 
 
 
 wexplore(dir(D)):-
-          var(D),
+          \+compound(D),
           dir(D),
           pathterm_atom(D,Dir),
           show(dir,Dir).
@@ -38,21 +34,32 @@ wexplore(dir(D/E)):-
           show(dir,Dir).
 
 wexplore(dir(Drive:/T)):-
-          atom_concat(Drive,':',D2),
-          wexplore(dir(D2/T)).
+          dir(Drive:/T),
+          pathterm_atom(Drive:/T,D2),
+          wexplore(dir(D2)).
 
-
-wexplore(file(Drive:/T)):-
-          atom_concat(Drive,':',D2),
-          wexplore(file(D2/T)).
-wexplore(filetype(Drive:/T)):-
-          atom_concat(Drive,':',D2),
-          wexplore(filetype(D2/T)).
 
 wexplore(file(D)):-
+          \+compound(D),
           file(D),
           pathterm_atom(D,File),
           select(file,File).
+
+wexplore(file(D/E)):-
+          file(D/E),
+          pathterm_atom(D/E,File),
+          select(file,File).
+
+wexplore(file(Drive:/T)):-
+          file(Drive:/T),
+          pathterm_atom(Drive:/T,File),
+          select(file,File).
+
+wexplore(filetype(Drive:/T)):-
+          filetype(Drive:/T),
+          pathterm_atom(Drive:/T,File),
+          select(file,File).
+
 
 wexplore(filetype(K/L)):-
           filetype(K/L),

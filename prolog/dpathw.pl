@@ -34,8 +34,10 @@ wexplore(dir(D/E)):-
           show(dir,Dir).
 
 wexplore(dir(Drive:/T)):-
-          atom_concat(Drive,':',D2),
-          wexplore(dir(D2/T)).
+          dir(Drive:/T),
+          pathterm_atom(Drive:/T,D2),
+          show(dir,D2).
+
 
 
 wexplore(file(D)):-
