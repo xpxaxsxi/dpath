@@ -22,11 +22,9 @@ filename that begins with a letter t.
 :- redefine_system_predicate( dpath:(.(_,_,_))).
 .(Data, Func, Value):-  Value =.. ['.', Data,Func].
 
-helper(DP):- file(DP).
-
-:- op(650,yfx, user: :/). %this WORKS
-
-
+%inserts an operator to user-module, inserting could
+%produce problems to 3rd party modules
+:- op(650,yfx, user: :/).
 
 
 %!        file( ?Pathterm ) is nondet.
@@ -35,7 +33,7 @@ helper(DP):- file(DP).
 %
 %         Example:
 %         ==
-%         ?- file('c:'/A/'explorer.exe').
+%         ?- file(c:/A/'explorer.exe').
 %         A = 'Windows';
 %         false.
 %         ==
@@ -48,7 +46,6 @@ file(C):-
 
 
 file( Drive:/Path):-
-
           atom(Drive),!,
           atom_concat(Drive,':',DriveAtom),
           file(DriveAtom/Path).
@@ -90,6 +87,12 @@ file(C) :-
 %
 %         @error throws errors only when debug topic
 %         dpath(exceptions) is true
+filetype(NotCompound):-
+          \+compound(NotCompound),!,
+          NotCompound=A.B,
+          filetype('.'/A.B).
+
+
 filetype( Drive:/Path):-
           %compound(DP),
           %DP=Drive :/ Path,
@@ -147,7 +150,7 @@ filetype( CK):-
 %
 %         Example:
 %         ==
-%         ?- dir('c:'/windows/B/C).
+%         ?- dir(c:/windows/B/C).
 %         B = appcompat,
 %         C = appraiser ;
 %         B = appcompat,
@@ -167,10 +170,10 @@ dir( DP):-
           DP=Drive :/ Path,
           var(Drive),
           !,
-
           member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
           atom_concat(Drive,':',DriveAtom),
           dir(DriveAtom/Path).
+
 dir(C):-
           compound(C),
           fold(C,A/_),
