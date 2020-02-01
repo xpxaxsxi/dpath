@@ -2,7 +2,8 @@
               dir/1,
               filetype/1,
               file/1,
-              pathterm_atom/2
+              pathterm_atom/2,
+              op(650,yfx, (:/))
           ]).
 /** <module> An file system traversing utility.
 
@@ -21,10 +22,6 @@ filename that begins with a letter t.
 % Dict-concept is using the dot-operator
 :- redefine_system_predicate( dpath:(.(_,_,_))).
 .(Data, Func, Value):-  Value =.. ['.', Data,Func].
-
-%inserts an operator to user-module, inserting could
-%produce problems to 3rd party modules
-:- op(650,yfx, user: :/).
 
 
 %!        file( ?Pathterm ) is nondet.

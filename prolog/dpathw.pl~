@@ -18,6 +18,14 @@
 .(Data, Func, Value):-  Value =.. ['.', Data,Func].
 
 
+%this is for convenience so that
+% wexplore(dpath:filetype(X))
+%works, instead of removing the dpath as in
+% wexplore(filetype(X))
+%
+wexplore(dpath:T):-
+          wexplore(T).
+
 
 wexplore(dir(D)):-
           \+compound(D),

@@ -2,7 +2,8 @@
               dir/1,
               filetype/1,
               file/1,
-              pathterm_atom/2
+              pathterm_atom/2,
+              op(650,yfx, (:/))
           ]).
 /** <module> An file system traversing utility.
 
@@ -24,7 +25,7 @@ filename that begins with a letter t.
 
 %inserts an operator to user-module, inserting could
 %produce problems to 3rd party modules
-:- op(650,yfx, user: :/).
+%:- op(650,yfx, user: :/).
 
 
 %!        file( ?Pathterm ) is nondet.
@@ -170,10 +171,10 @@ dir( DP):-
           DP=Drive :/ Path,
           var(Drive),
           !,
-
           member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
           atom_concat(Drive,':',DriveAtom),
           dir(DriveAtom/Path).
+
 dir(C):-
           compound(C),
           fold(C,A/_),

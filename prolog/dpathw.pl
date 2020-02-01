@@ -2,7 +2,9 @@
                wopen/1,
                file/1,
                dir/1,
-               pathterm_atom/2
+               pathterm_atom/2,
+               op(650,yfx, (:/))
+
               ]).
 /* Module has predicates to interact with Windows file tools
  *
