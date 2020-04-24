@@ -2,7 +2,7 @@
 
 show(dir,DirText):-
     atom(DirText),
-    absolute_file_name(DirText,DirPath,[file_type(directory)]),
+    text_has_path(DirText,DirPath),
     exists_directory(DirPath),
     !,
     prolog_to_os_filename(DirPath,OS),
@@ -21,7 +21,7 @@ show(dir,SpecDir):-
 select(file,FileText):-
     atom(FileText),
     !,
-    absolute_file_name(FileText,FilePath),
+    text_has_path(FileText,FilePath),
     exists_file(FilePath),
 
     prolog_to_os_filename(FilePath,OS),atomic_list_concat(['explorer','/select',',',OS],' ',Comm),
