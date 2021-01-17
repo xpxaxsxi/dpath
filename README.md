@@ -5,6 +5,7 @@ An file system traversing utility. Backtracks in the directory structure. Got in
 This repository is under a MIT-license. 
 This repository can be installed to Swi-Prolog as a pack by `pack_install(dpath).` 
 
+(This is not for the current production version. I have messed up my Github, it seems. Use 'c:/' instead of Drive)
 ```prolog
 ?- file(Drive :/ File). 
 Drive = c,
