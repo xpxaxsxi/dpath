@@ -5,14 +5,10 @@ An file system traversing utility. Backtracks in the directory structure. Got in
 This repository is under a MIT-license. 
 This repository can be installed to Swi-Prolog as a pack by `pack_install(dpath).` 
 
-(This is not for the current production version. I have messed up my Github, it seems. Use 'c:/' instead of Drive)
 ```prolog
-?- file(Drive :/ File). 
-Drive = c,
+?- file('c:'/ File). 
 File = bootmgr ;
-Drive = c,
 File = 'BOOTNXT' ;
-Drive = c,
 File = 'bootTel.dat' .
 ```
 
@@ -69,14 +65,14 @@ Example:
 Windows 10 opens an jpg-image.  Next image is shown after user hits spacebar in Swi-Prolog command prompt. 
 All desktops are traversed while searching for images. 
 ```
-?- dpathw:wopen(filetype(c:/users/_/desktop/A.jpg)).
+?- dpathw:wopen(filetype('c:'/users/_/desktop/A.jpg)).
 ```
 
 Example:
 
 Windows 10 shows a slideshow of jpg-images from desktop-folder, every users desktop is searched
 ```
-?- dpathw:wopen(filetype(c:/users/_/desktop/A.jpg)), sleep(5), fail;!.
+?- dpathw:wopen(filetype('c:'/users/_/desktop/A.jpg)), sleep(5), fail;!.
 ```
 
 Possible bugs: Using Swi-Prolog dicts might cause problems.
