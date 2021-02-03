@@ -50,6 +50,24 @@ B = samba
 `dpathw` and `wexplorer` are modules that interact with Windows File Explorer. 
 `dpath` can be used without them, as in Linux command line.
 
+Example:
+
+Aggregated size of prolog files in current directory. Windows and Linux.
+
+```
+?- dpath:(A.pl=X),aggregate_all(sum(Sz),(dpath:(filetype(X),pathterm_atom(X,Path)),size_file(Path,Sz)),Res).
+X = A.pl,
+Res = 1349131.
+```
+
+Example
+
+Number of sub-directories in current directory. Windows and Linux.
+```
+?- aggregate_all(count,dpath:dir(X),Res).
+Res = 66.
+```
+
 Example: 
 
 Windows 10 opens up an Explorer window that has dpath.pl selected, when current
