@@ -1,3 +1,3 @@
 name(dpath).
 title('Directory traversal module').
-version('0.6.01').
+version('0.7.0').
