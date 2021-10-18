@@ -2,11 +2,11 @@
               dir/1,
               filetype/1,
               file/1,
-              pathterm_atom/2
+              pathterm_atom/2,
+              op(650,yfx, (:/))
           ]).
 /** <module> An file system traversing utility.
 
-:-
 Traverses directory structure and backtracks when necessary.
 
 Example:
@@ -16,13 +16,34 @@ Example:
 True when A is unified to a subdirectory and B is unified to a
 filename that begins with a letter t.
 
+
 */
-%:- table directory_directories/2.
-:- op(400,yfx,(:/)).
+:- use_module(library(dpathw)).
 
 % Dict-concept is using the dot-operator
 :- redefine_system_predicate( dpath:(.(_,_,_))).
 .(Data, Func, Value):-  Value =.. ['.', Data,Func].
+
+:- multifile prolog:message//1.
+
+prolog:message( dpath(Path,Because)) -->
+	       ['dpath ignoring ~w in ~q'-[Because,Path]].
+
+%not sure if this is needed, a developer understands
+%the too long paths in Windows and other exceptions
+exists_directory_handle_exc(A):-
+          catch(exists_directory(A),
+                error(K,context(_,A)),
+          ( (K=domain_error(foreign_return_value,-1))->
+          fail;
+          print_message(warning,dpath(A,K)),fail)).
+
+exists_file_handle_exc(A):-
+          catch(exists_file(A),
+                error(K,context(_,A)),
+
+          ( print_message(warning,dpath(A,K)),fail)).
+
 
 
 %!        file( ?Pathterm ) is nondet.
@@ -31,13 +52,32 @@ filename that begins with a letter t.
 %
 %         Example:
 %         ==
-%         ?- file('c:'/A/'explorer.exe').
+%         ?- file(c:/A/'explorer.exe').
 %         A = 'Windows';
 %         false.
 %         ==
 %
+%         Max path errors and other errors are shown as warnings
+%
 %         @error Throws errors only when debug topic
 %         dpath(exceptions) is true
+file(C):-
+          \+compound(C),!,
+          exists_file(C,cd('.')).
+
+
+file( Drive:/Path):-
+          atom(Drive),!,
+          atom_concat(Drive,':',DriveAtom),
+          file(DriveAtom/Path).
+
+file( Drive :/ Path):-
+          var(Drive),
+          !,
+          member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
+          atom_concat(Drive,':',DriveAtom),
+          file(DriveAtom/Path).
+
 file(C):-
           compound(C),
           fold(C,A/_),
@@ -51,8 +91,7 @@ file(C) :-
           split_pathterm(C,Cd,Rest),
           exists_file(Rest,cd(Cd)).
 
-file(C):-
-          exists_file(C,cd('.')).
+
 
 %!        filetype( ?Pathterm_with_extension ) is nondet.
 %
@@ -62,13 +101,37 @@ file(C):-
 %
 %         Example:
 %         ==
-%         ?- dpath:filetype('c:'/windows/A.exe).
+%         ?- dpath:filetype(c:/windows/A.exe).
 %         A = bfsvc;
 %         A = explorer;
 %         ==
 %
+%         Max path errors and other errors are shown as warnings
+%
 %         @error throws errors only when debug topic
 %         dpath(exceptions) is true
+filetype(NotCompound):-
+          \+compound(NotCompound),!,
+          NotCompound=A.B,
+          filetype('.'/A.B).
+
+
+filetype( Drive:/Path):-
+          %compound(DP),
+          %DP=Drive :/ Path,
+          atom(Drive),!,
+          atom_concat(Drive,':',DriveAtom),
+          filetype(DriveAtom/Path).
+
+filetype( Drive:/Path):-
+          %compound(DP),
+          %DP=Drive :/ Path,
+          var(Drive),
+          !,
+          member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
+          atom_concat(Drive,':',DriveAtom),
+          filetype(DriveAtom/Path).
+
 filetype( C/K):-
           atom(C),
           !,
@@ -87,9 +150,7 @@ filetype( C/K):-
           fold(C,A/_),
           var(A),
           !,
-          A='.',
-          split_pathterm(C,Cd,Rest),
-          exists_filetype(Rest/K,cd(Cd)).
+          exists_filetype(C/K,cd('.')).
 
 filetype( C/K):-
           atom(C),!,
@@ -112,14 +173,33 @@ filetype( CK):-
 %
 %         Example:
 %         ==
-%         ?- dir('c:'/windows/B/C).
+%         ?- dir(c:/windows/B/C).
 %         B = appcompat,
 %         C = appraiser ;
 %         B = appcompat,
 %         C = 'Programs'
 %         ==
+%
+%         Max path errors and other errors are shown as warnings
+%
 %         @error throws errors only when debug topic
 %         dpath(exceptions) is true
+dir( DP):-
+          compound(DP),
+          DP=Drive :/ Path,
+          atom(Drive),!,
+          atom_concat(Drive,':',DriveAtom),
+          dir(DriveAtom/Path).
+
+dir( DP):-
+          compound(DP),
+          DP=Drive :/ Path,
+          var(Drive),
+          !,
+          member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
+          atom_concat(Drive,':',DriveAtom),
+          dir(DriveAtom/Path).
+
 dir(C):-
           compound(C),
           fold(C,A/_),
@@ -140,21 +220,6 @@ dir( A):-
 dir( A):-
           atom(A),
           exists_dir(A,cd('.')).
-
-tst(A:/B):-
-          ground(A),!,
-          atom_concat(A,':',C),
-          D = C/B,
-          dir(D).
-tst(A:/B):-
-          var(A),
-          member(C,[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
-          atom_concat(C,':',D),
-          fold(D/B,Folded),
-          dir(Folded),
-          write(A),write(' = '),writeln(C),
-          true.
-
 
 %exists a file that is of  some filetype
 exists_filetype('/'(A,B),cd(CD)):-
@@ -302,7 +367,7 @@ unify_term(_,_,[H],H).
 
 pt_exists_file(PathTerm):-
           pathterm_to_atom(PathTerm,Atom),
-          exists_file(Atom).
+          exists_file_handle_exc(Atom).
 
 
 %!        exists_dir( ?PathTerm, -VirtualCd) is nondet.
@@ -322,19 +387,12 @@ exists_dir2(AB,cd(CD)):-
 exists_dir2(A,cd(CD)):-
            atom(A),
            pathterm_to_atom(CD/A,Atom),
-           exists_directory(Atom).
+           exists_directory_handle_exc(Atom).
 
 exists_dir2(A,cd(CD)):-
           var(A),
           directory_directories(A,cd(CD)).
 
-check_junction(A,B,CD):-
-          trace,
-               pathterm_to_atom(CD/A,Atom),
-               pathterm_to_atom(CD/A/B,Atom2),
-               forall(
-                   filtered_directory_has_a_member(Atom,A),
-                   filtered_directory_has_a_member(Atom2,A)).
 
 % directory_directories(Main/Sub)
 % traverses all directories,
@@ -343,30 +401,19 @@ check_junction(A,B,CD):-
 % Main and Sub are relative to the CD
 % CD can't be a variable but can be a
 % compound
-
-%TBD handle a recursion as in Windows junction
-directoXry_directories(/(A,B),cd(CD)):-
-         ground(A),ground(B),
-         trace,
-         string_lower(A,AL),
-         string_lower(B,AL),
-         check_junction(A,A,CD),!,
-         fail.
-
-
 directory_directories(A,cd(CD)):-
          \+compound(A),var(A),!,
          pathterm_to_atom(CD,Atom),
          filtered_directory_has_a_member(Atom,A),
          pathterm_to_atom(CD/A,AAtom),
-         exists_directory(AAtom).
+         exists_directory_handle_exc(AAtom).
 
 directory_directories( /(A,B),cd(CD)):-
          var(A),var(B), !,
          pathterm_to_atom(CD,Atom),
          filtered_directory_has_a_member(Atom,A),
          pathterm_to_atom(CD/A,BAtom),
-         exists_directory(BAtom),
+         exists_directory_handle_exc(BAtom),
          directory_directories(A/B,cd(CD)).
 
 directory_directories( /(A,B),cd(CD)):-
@@ -374,24 +421,25 @@ directory_directories( /(A,B),cd(CD)):-
          pathterm_to_atom(CD/A,Atom),
          filtered_directory_has_a_member(Atom,B),
          pathterm_to_atom(CD/A/B,BAtom),
-         exists_directory(BAtom).
+         exists_directory_handle_exc(BAtom).
 
 directory_directories( /(A,B),cd(CD)):-
          atom(A),atom(B),!,
          pathterm_to_atom(CD/A/B,Atom),
-         exists_directory(Atom).
+         exists_directory_handle_exc(Atom).
 
 directory_directories( /(A,B),cd(CD)):-
          var(A),atom(B),!,
          pathterm_to_atom(CD,Atom),
          filtered_directory_has_a_member(Atom,A),
          pathterm_to_atom(CD/A/B,BAtom2),
-         exists_directory(BAtom2).
+         exists_directory_handle_exc(BAtom2).
 
 directory_directories(A,cd(CD)):-
          atom(A),!,
          pathterm_to_atom(CD/A,Atom),
-         system:exists_directory(Atom).
+         exists_directory_handle_exc(Atom).
+
 
 
 filtered_directory_has_a_member(DirAtom,Member):-
@@ -449,6 +497,11 @@ extterm_to_atom(A,A).
 %        ==
 %        pathterm_atom(k/l/m/a.b,'k/l/m/a.b').
 %        ==
+pathterm_atom(Drive:/Path,Res):-
+          !,
+          pathterm_atom(Path,A),
+          atomic_list_concat([Drive,':/',A],Res).
+
 pathterm_atom( .(A,B),Res):-
          !,
          pathterm_atom(A,Res2),

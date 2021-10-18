@@ -1,8 +1,10 @@
 :- module(dpathw,[wexplore/1,
                wopen/1,
-               file/1,
-               dir/1,
-               pathterm_atom/2
+               %file/1,
+               %dir/1,
+               %pathterm_atom/2,
+               op(650,yfx, (:/))
+
               ]).
 /* Module has predicates to interact with Windows file tools
  *
@@ -14,7 +16,8 @@
 
 
 % Dict-concept is using the dot-operator
-:- redefine_system_predicate( win:(.(_,_,_))).
+%:- redefine_system_predicate( win:(.(_,_,_))).
+:- redefine_system_predicate( dpathw:(.(_,_,_))).
 .(Data, Func, Value):-  Value =.. ['.', Data,Func].
 
 
@@ -91,25 +94,25 @@ wopen(filetype(Dr:/K/L)):-
           filetype(Dr:/K/L),
           pathterm_atom(Dr:/K/L,Path),
           absolute_file_name(Path,AbsPath),
-          win_shell(open,AbsPath).
+          open(AbsPath).
 
 wopen(filetype(Dr:/K.L)):-
           filetype(Dr:/K.L),
           pathterm_atom(Dr:/K.L,Path),
           absolute_file_name(Path,AbsPath),
-          win_shell(open,AbsPath).
+          open(AbsPath).
 
 wopen(filetype(K/L)):-
           filetype(K/L),
           pathterm_atom(K/L,Path),
           absolute_file_name(Path,AbsPath),
-          win_shell(open,AbsPath).
+          open(AbsPath).
 
 wopen(filetype(K.L)):-
           filetype(K.L),
           pathterm_atom(K.L,Path),
           absolute_file_name(Path,AbsPath),
-          win_shell(open,AbsPath).
+          open(AbsPath).
 
 
 
