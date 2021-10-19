@@ -20,14 +20,6 @@ show(dir,SpecDir):-
     %win_exec(Comm,show).
     cmd_open_file(DirPath).
 
-%what was I thinking with this????!
-seXlect(file,FileText):-
-    atom(FileText),
-    !,
-    %text_has_path(FileText,FilePath),
-    exists_file(FilePath),
-    cmd_select_file(FilePath).
-
 select(file,SpecDir):-
     absolute_file_name(SpecDir,FileText),
     %text_has_path(FileText,FilePath),
