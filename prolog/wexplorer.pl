@@ -5,9 +5,6 @@ show(dir,DirText):-
     text_has_path(DirText,DirPath),
     exists_directory(DirPath),
     !,
-    %prolog_to_os_filename(DirPath,OS),
-    %atomic_list_concat(['explorer','/e',',',OS],' ',Comm),
-    %win_exec(Comm,show).
     cmd_open_file(DirPath).
 
 show(dir,SpecDir):-
@@ -15,14 +12,10 @@ show(dir,SpecDir):-
     text_has_path(DirText,DirPath),
     exists_directory(DirPath),
     !,
-
-    %prolog_to_os_filename(DirPath,OS),atomic_list_concat(['explorer','/e',',',OS],' ',Comm),
-    %win_exec(Comm,show).
     cmd_open_file(DirPath).
 
 select(file,SpecDir):-
     absolute_file_name(SpecDir,FileText),
-    %text_has_path(FileText,FilePath),
     exists_file(FileText),
 
     cmd_select_file(FileText).
@@ -36,7 +29,6 @@ cmd_open_file(File):-
     current_prolog_flag(unix,true),!,
     atomic_list_concat(['xdg-open',File],' ',Atom),
     shell(Atom).
-    %unix_select_file(File).
 
 cmd_select_file(File):-
     current_prolog_flag(unix,true),!,
