@@ -47,8 +47,15 @@ A = etc,
 B = samba 
 ```
 
-`dpathw` and `wexplorer` are modules that interact with Windows File Explorer. 
-`dpath` can be used without them, as in Linux command line.
+Notes:
+`dpathw` and `wexplorer` are modules that interact with Windows or Linux system utilities, that is,
+they can open files in a proper program using the extension. Also it is possible to open a file system browser where file is selected, both in Linux and Windows. 
+
+Filenames are not  produced in alphabetical order from file/1 or filetype/2, the file system decides the order, usually the order of files is same. In other words, you can't trust that filenames are produced in same order always. 
+
+Filenames and extensions are case sensitive.
+
+
 
 Example:
 
