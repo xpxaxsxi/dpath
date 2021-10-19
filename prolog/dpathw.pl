@@ -1,22 +1,15 @@
 :- module(dpathw,[wexplore/1,
                wopen/1,
-               %file/1,
-               %dir/1,
-               %pathterm_atom/2,
                op(650,yfx, (:/))
-
               ]).
 /* Module has predicates to interact with Windows file tools
  *
  *
 */
 
-%:- use_module(dpath).
 :- use_module(wexplorer).
 
-
 % Dict-concept is using the dot-operator
-%:- redefine_system_predicate( win:(.(_,_,_))).
 :- redefine_system_predicate( dpathw:(.(_,_,_))).
 .(Data, Func, Value):-  Value =.. ['.', Data,Func].
 
@@ -25,10 +18,8 @@
 % wexplore(dpath:filetype(X))
 %works, instead of removing the dpath as in
 % wexplore(filetype(X))
-%
 wexplore(dpath:T):-
           wexplore(T).
-
 
 wexplore(dir(D)):-
           \+compound(D),
@@ -45,8 +36,6 @@ wexplore(dir(Drive:/T)):-
           dir(Drive:/T),
           pathterm_atom(Drive:/T,D2),
           show(dir,D2).
-
-
 
 wexplore(file(D)):-
           \+compound(D),
@@ -69,7 +58,6 @@ wexplore(filetype(Drive:/T)):-
           pathterm_atom(Drive:/T,File),
           select(file,File).
 
-
 wexplore(filetype(K/L)):-
           filetype(K/L),
           pathterm_atom(K/L,Path),
@@ -86,7 +74,6 @@ wexplore(filetype(K.L)):-
 % wopen(dpath:filetype(X))
 %works, instead of removing the dpath as in
 % wopen(filetype(X))
-%
 wopen(dpath:T):-
           wopen(T).
 
