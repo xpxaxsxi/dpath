@@ -25,7 +25,7 @@ A='file3.pl'
 ```
 
 ```prolog
-?- dpath:filetype(F.pl). %Swipl doesn't like  the dot in 'F.pl' and the Do What I Mean 
+?- dpath:filetype(F.pl). %Swipl doesn't like  the dot in 'F.pl' when using filetype/2 without module qualifier 
                   
 F=file3
 ```
@@ -48,6 +48,7 @@ B = samba
 ```
 
 Notes:
+
 `dpathw` and `wexplorer` are modules that interact with Windows or Linux system utilities, that is,
 they can open files in a proper program using the extension. Also it is possible to open a file system browser where file is selected, both in Linux and Windows. 
 
@@ -55,6 +56,7 @@ Filenames are not  produced in alphabetical order from file/1 or filetype/2, the
 
 Filenames and extensions are case sensitive.
 
+If file/1 or filetype/2 or dir/1 or some underlying predicates are cached using table predicates more speed is acquired. Caching naturally can causes problems if files are deleted or current directory is changed etc. If directory structure stays same then tabling the dpath:directory_directories/2 will give lots of speed.
 
 
 Example:
