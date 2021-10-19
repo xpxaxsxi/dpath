@@ -6,7 +6,7 @@ This repository is under a MIT-license.
 This repository can be installed to Swi-Prolog as a pack by `pack_install(dpath).` 
 
 ```prolog
-?- file('c:'/ File). 
+?- file(c:/ File). 
 File = bootmgr ;
 File = 'BOOTNXT' ;
 File = 'bootTel.dat' .
@@ -26,7 +26,7 @@ A='file3.pl'
 
 ```prolog
 ?- dpath:filetype(F.pl). %Swipl doesn't like  the dot in 'F.pl' and the Do What I Mean 
-                   % proposes a proper module in Windows. Linux throws a error
+                  
 F=file3
 ```
 
@@ -83,14 +83,14 @@ Example:
 Windows 10 opens an jpg-image.  Next image is shown after user hits spacebar in Swi-Prolog command prompt. 
 All desktops are traversed while searching for images. 
 ```
-?- dpathw:wopen(filetype('c:'/users/_/desktop/A.jpg)).
+?- dpathw:wopen(filetype(c:/users/_/desktop/A.jpg)).
 ```
 
 Example:
 
 Windows 10 shows a slideshow of jpg-images from desktop-folder, every users desktop is searched
 ```
-?- dpathw:wopen(filetype('c:'/users/_/desktop/A.jpg)), sleep(5), fail;!.
+?- dpathw:wopen(filetype(c:/users/_/desktop/A.jpg)), sleep(5), fail;!.
 ```
 
 Possible bugs: Using Swi-Prolog dicts might cause problems.
