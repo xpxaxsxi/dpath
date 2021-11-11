@@ -62,6 +62,10 @@ exists_file_handle_exc(A):-
 %         @error Throws errors only when debug topic
 %         dpath(exceptions) is true
 file(C):-
+          ground(C),!,
+          pathterm_atom(C,Atom),
+          exists_file(Atom).
+file(C):-
           \+compound(C),!,
           exists_file(C,cd('.')).
 
@@ -110,6 +114,11 @@ file(C) :-
 %
 %         @error throws errors only when debug topic
 %         dpath(exceptions) is true
+filetype(C):-
+          ground(C),!,
+          pathterm_atom(C,Atom),
+          exists_file(Atom).
+
 filetype(NotCompound):-
           \+compound(NotCompound),!,
           NotCompound=A.B,
@@ -117,11 +126,15 @@ filetype(NotCompound):-
 
 
 filetype( Drive:/Path):-
+          %compound(DP),
+          %DP=Drive :/ Path,
           atom(Drive),!,
           atom_concat(Drive,':',DriveAtom),
           filetype(DriveAtom/Path).
 
 filetype( Drive:/Path):-
+          %compound(DP),
+          %DP=Drive :/ Path,
           var(Drive),
           !,
           member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
@@ -180,6 +193,10 @@ filetype( CK):-
 %
 %         @error throws errors only when debug topic
 %         dpath(exceptions) is true
+dir(C):-
+          ground(C),!,
+          pathterm_atom(C,Atom),
+          exists_directory(Atom).
 dir( DP):-
           compound(DP),
           DP=Drive :/ Path,
@@ -222,6 +239,12 @@ exists_filetype('/'(A,B),cd(CD)):-
           !,
           exists_file(A/X,cd(CD)),
           filename_head_tail(X,B).
+
+/*exists_filetype(AB,cd(CD)):-
+          compound(AB),ground(AB),
+          !,
+          pathterm_atom(CD/AB,Atom),
+          exists_file(Atom).*/
 
 exists_filetype( AB,cd(CD)):-
           exists_file(D,cd(CD)),
