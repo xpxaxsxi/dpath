@@ -3,7 +3,7 @@
 An file system traversing utility. Backtracks in the directory structure. Got inspiration from xpath/2.
 
 This repository is under a MIT-license. 
-This repository can be installed to Swi-Prolog as a pack by `pack_install(dpath).` 
+The latest release version can be installed to Swi-Prolog as a pack by `pack_install(dpath).` There could be pre-release versions that are under development. They can be installed for example  `pack_install('https://github.com/xpxaxsxi/dpath/archive/0.7.2.zip')` 
 
 ```prolog
 ?- file(c:/ File). 
