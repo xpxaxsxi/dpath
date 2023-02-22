@@ -30,6 +30,16 @@ A='file3.pl'
 F=file3
 ```
 
+Show directory under OneDrive root, hitting spacebar gives alternatives
+```prolog
+win_folder(personal,B),dir(B/'..'/onedrive),dir(B/'..'/onedrive/A).
+```
+
+Aggregate size of all files under your Documents folder
+```prolog
+win_folder(personal,B), aggregate_all(sum(SZ), (file(B/C), pathterm_atom(B/C,AtomPath),size_file(AtomPath,SZ)),Res).
+```
+
 Linux example:
 ```prolog
 ?- dir('/'/A/B/C/D/E/F).
