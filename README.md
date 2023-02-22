@@ -71,7 +71,7 @@ If file/1 or filetype/2 or dir/1 or some underlying predicates are cached using 
 
 Example:
 
-Aggregated size of prolog files in current directory. Windows and Linux.
+Aggregated size of prolog files in current directory level (no sub directories that is). Windows and Linux.
 
 ```
 ?- dpath:(A.pl=X),aggregate_all(sum(Sz),(dpath:(filetype(X),pathterm_atom(X,Path)),size_file(Path,Sz)),Res).
