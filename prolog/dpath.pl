@@ -72,14 +72,14 @@ file(C):-
 
 file( Drive:/Path):-
           atom(Drive),!,
-          atom_concat(Drive,':',DriveAtom),
+          atom_concat(Drive,':/',DriveAtom),
           file(DriveAtom/Path).
 
 file( Drive :/ Path):-
           var(Drive),
           !,
           member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
-          atom_concat(Drive,':',DriveAtom),
+          atom_concat(Drive,':/',DriveAtom),
           file(DriveAtom/Path).
 
 file(C):-
@@ -129,7 +129,7 @@ filetype( Drive:/Path):-
           %compound(DP),
           %DP=Drive :/ Path,
           atom(Drive),!,
-          atom_concat(Drive,':',DriveAtom),
+          atom_concat(Drive,':/',DriveAtom),
           filetype(DriveAtom/Path).
 
 filetype( Drive:/Path):-
@@ -138,7 +138,7 @@ filetype( Drive:/Path):-
           var(Drive),
           !,
           member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
-          atom_concat(Drive,':',DriveAtom),
+          atom_concat(Drive,':/',DriveAtom),
           filetype(DriveAtom/Path).
 
 filetype( C/K):-
@@ -201,7 +201,7 @@ dir( DP):-
           compound(DP),
           DP=Drive :/ Path,
           atom(Drive),!,
-          atom_concat(Drive,':',DriveAtom),
+          atom_concat(Drive,':/',DriveAtom),
           dir(DriveAtom/Path).
 
 dir( DP):-
@@ -210,7 +210,7 @@ dir( DP):-
           var(Drive),
           !,
           member(Drive,[c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]),
-          atom_concat(Drive,':',DriveAtom),
+          atom_concat(Drive,':/',DriveAtom),
           dir(DriveAtom/Path).
 
 dir(C):-
