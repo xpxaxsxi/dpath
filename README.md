@@ -52,7 +52,7 @@ Show directory under OneDrive root, hitting spacebar gives alternatives
 win_folder(personal,B),dir(B/'..'/onedrive),dir(B/'..'/onedrive/A).
 ```
 
-Aggregate size of all files under your Documents folder
+Aggregate size of all files under your Documents folder, no subdirectories included
 ```prolog
 win_folder(personal,B), aggregate_all(sum(SZ), (file(B/C), pathterm_atom(B/C,AtomPath),size_file(AtomPath,SZ)),Res).
 ```
