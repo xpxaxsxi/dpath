@@ -60,7 +60,7 @@ Output could be like
 F=file3
 ```
 
-#### Show directory under OneDrive root, hitting spacebar gives alternatives
+#### Show directory names under OneDrive root, hitting spacebar gives alternatives
 ```prolog
 getenv('OneDrive',A),prolog_to_os_filename(ProPath,A),dir(ProPath/Subdir).
 ```
