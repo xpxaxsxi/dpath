@@ -111,7 +111,7 @@ A = dpath.
 Windows 10 opens an jpg-image.  Next image is shown after user hits spacebar in Swi-Prolog command prompt. 
 All desktops are traversed while searching for images. 
 ```prolog
-dpathw:wopen(filetype(c:/users/_/desktop/A.jpg)).
+win_folder(desktop,B),dpathw:wopen(filetype(B/A.jpg)).
 ```
 
 #### Open jpg images after 5 sec delays
