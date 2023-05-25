@@ -91,7 +91,8 @@ Res = 66.
 
 #### Find ImageMagick executable 
 ```prolog
-dir(c:/A),wildcard_match('Program Files*',A),dpath:filetype(c:/A/Directory/Executable.exe),wildcard_match('magick*',Executable).
+dir(c:/A),wildcard_match('Program Files*',A),
+dpath:filetype(c:/A/Directory/Executable.exe),wildcard_match('magick*',Executable).
 ```
 
 #### Open many explorer windows
