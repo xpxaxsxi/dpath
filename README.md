@@ -62,7 +62,7 @@ F=file3
 
 #### Show directory under OneDrive root, hitting spacebar gives alternatives
 ```prolog
-win_folder(personal,B),dir(B/'..'/onedrive),dir(B/'..'/onedrive/A).
+getenv('OneDrive',A),prolog_to_os_filename(ProPath,A),dir(ProPath/Subdir).
 ```
 
 #### Aggregate size of all files under your Documents folder, no subdirectories included
