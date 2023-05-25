@@ -117,7 +117,7 @@ win_folder(desktop,B),dpathw:wopen(filetype(B/A.jpg)).
 #### Open jpg images after 5 sec delays
 Windows 10 shows a slideshow of jpg-images from desktop-folder, every users desktop is searched
 ```prolog
-dpathw:wopen(filetype(c:/users/_/desktop/A.jpg)), sleep(5), fail;!.
+win_folder(desktop,DesktopPath),dpathw:wopen(filetype(DesktopPath/A.jpg)), sleep(5), fail;!.
 ```
 
 #### Linux example, show files that are at 6th directory level under root
